@@ -13,14 +13,15 @@ $(document).ready(function() {
 
         config : {
             password        : user.Pass,
-            displayName     : user.Display,
-            uri             : 'sip:'+user.User+'@'+user.Realm,
-            wsServers       : user.WSServer,
+            displayName     : user.User,
+            uri             : 'sip:'+user.User+'@'+'139.180.131.173',
+            wsServers       : 'wss://fs.thoutam.com:7443',
             registerExpires : 30,
             traceSip        : true,
             log             : {
-                level : 0,
+                level : 3,
             }
+
         },
         ringtone     : document.getElementById('ringtone'),
         ringbacktone : document.getElementById('ringbacktone'),
@@ -32,7 +33,7 @@ $(document).ready(function() {
         callVolume   : 1,
         Stream       : null,
 
-        /**
+       /**
          * Parses a SIP uri and returns a formatted US phone number.
          *
          * @param  {string} phone number or uri to format
@@ -211,10 +212,10 @@ $(document).ready(function() {
          * @param {string} status
          */
         setStatus : function(status) {
-            $("#txtRegStatus").html('<i class="fa fa-signal"></i> '+status);
+            $("#txtRegStatus").html('<i class="fa fa-signal fa-2x"></i> '+status);
         },
 
-        /**
+	/**
          * logs a call to localstorage
          *
          * @param  {object} session
@@ -301,20 +302,20 @@ $(document).ready(function() {
 
             i  = '<div class="list-group-item sip-logitem clearfix '+callClass+'" data-uri="'+item.uri+'" data-sessionid="'+item.id+'" title="Double Click to Call">';
             i += '<div class="clearfix"><div class="pull-left">';
-            i += '<i class="fa fa-fw '+callIcon+' fa-fw"></i> <strong>'+ctxSip.formatPhone(item.uri)+'</strong><br><small>'+moment(item.start).format('MM/DD hh:mm:ss a')+'</small>';
+            i += '<i class="fa fa-fw fa-2x '+callIcon+' fa-fw"></i> <strong>'+ctxSip.formatPhone(item.uri)+'</strong><br><small>'+moment(item.start).format('MM/DD hh:mm:ss a')+'</small>';
             i += '</div>';
             i += '<div class="pull-right text-right"><em>'+item.clid+'</em><br>' + callLength+'</div></div>';
 
             if (callActive) {
                 i += '<div class="btn-group btn-group-xs pull-right">';
                 if (item.status === 'ringing' && item.flow === 'incoming') {
-                    i += '<button class="btn btn-xs btn-success btnCall" title="Call"><i class="fa fa-phone"></i></button>';
+                    i += '<button class="btn btn-xs btn-success btnCall" title="Call"><i class="fa fa-phone fa-2x"></i></button>';
                 } else {
-                    i += '<button class="btn btn-xs btn-primary btnHoldResume" title="Hold"><i class="fa fa-pause"></i></button>';
-                    i += '<button class="btn btn-xs btn-info btnTransfer" title="Transfer"><i class="fa fa-random"></i></button>';
-                    i += '<button class="btn btn-xs btn-warning btnMute" title="Mute"><i class="fa fa-fw fa-microphone"></i></button>';
+                    i += '<button class="btn btn-xs btn-primary btnHoldResume" title="Hold"><i class="fa fa-pause fa-2x"></i></button>';
+                    i += '<button class="btn btn-xs btn-info btnTransfer" title="Transfer"><i class="fa fa-random fa-2x"></i></button>';
+                    i += '<button class="btn btn-xs btn-warning btnMute" title="Mute"><i class="fa fa-fw fa-microphone fa-2x"></i></button>';
                 }
-                i += '<button class="btn btn-xs btn-danger btnHangUp" title="Hangup"><i class="fa fa-stop"></i></button>';
+                i += '<button class="btn btn-xs btn-danger btnHangUp" title="Hangup"><i class="fa fa-stop fa-2x"></i></button>';
                 i += '</div>';
             }
             i += '</div>';
@@ -708,17 +709,17 @@ $(document).ready(function() {
                    return (css.match (/(^|\s)btn\S+/g) || []).join(' ');
                 })
                 .addClass('btn btn-sm btn-danger');
-            icon.removeClass().addClass('fa fa-fw fa-volume-off');
+            icon.removeClass().addClass('fa fa-fw fa-volume-off fa-2x');
         } else if (v < 0.8) {
             btn.removeClass(function (index, css) {
                    return (css.match (/(^|\s)btn\S+/g) || []).join(' ');
                }).addClass('btn btn-sm btn-info');
-            icon.removeClass().addClass('fa fa-fw fa-volume-down');
+            icon.removeClass().addClass('fa fa-fw fa-volume-down fa-2x');
         } else {
             btn.removeClass(function (index, css) {
                    return (css.match (/(^|\s)btn\S+/g) || []).join(' ');
                }).addClass('btn btn-sm btn-primary');
-            icon.removeClass().addClass('fa fa-fw fa-volume-up');
+            icon.removeClass().addClass('fa fa-fw fa-volume-up fa-2x');
         }
         return false;
     });
